@@ -44,16 +44,70 @@
 <footer>
 	<p>
 		Created with <i class="fa fa-heart"></i> by
-		<a target="_blank" href="https://friendsfrontier.fun">Akshit Prashar</a>
+		<a class="popup-link" target="_blank" href="https://friendsfrontier.fun">Akshit Prashar</a>
 		- Learn how I built it
-		<a target="_blank" href="https://etus.link/akshitprashar">in this post</a>
+		<a class="popup-link" target="_blank" href="https://etus.link/akshitprashar">in this post</a>
 	</p>
-
+ <div id="popup-overlay">
+        <div id="popup-content">
+            <span class="popup-close">&times;</span>
+            <iframe id="popup-iframe" src="" frameborder="0"></iframe>
+        </div>
+    </div>
  <style>
         /* Hide the audio player */
         #myAudio {
             display: none;
         }
+
+
+
+	 /* Popup Overlay */
+#popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+/* Popup Content */
+#popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px #ff69b4;
+}
+
+/* Popup Close Button */
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Iframe for displaying content */
+#popup-iframe {
+    width: 100%;
+    height: 80vh; /* Adjust height as per requirement */
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    #popup-content {
+        width: 90%;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -83,6 +137,31 @@
             }, 3000);
         }
     });
+
+
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+    const popupLinks = document.querySelectorAll('.popup-link');
+    const popupOverlay = document.getElementById('popup-overlay');
+    const popupClose = document.querySelector('.popup-close');
+    const popupIframe = document.getElementById('popup-iframe');
+
+    popupLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            const url = this.getAttribute('href');
+            popupIframe.src = url;
+            popupOverlay.style.display = 'block';
+        });
+    });
+
+    popupClose.addEventListener('click', function () {
+        popupIframe.src = '';
+        popupOverlay.style.display = 'none';
+    });
+});
+
 </script>
 
 
